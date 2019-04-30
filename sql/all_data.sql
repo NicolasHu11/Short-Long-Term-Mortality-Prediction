@@ -69,7 +69,8 @@ create materialized view all_data as
   )
 
 
-  select la.subject_id, la.hadm_id, ad.admittime, ad.dischtime, ad.deathtime, p.dod, p.DOD_HOSP, d.DOD_HOSP
+  select la.subject_id, la.hadm_id, ad.admittime, ad.dischtime, ad.deathtime
+  , p.dod
   , ie.first_careunit, ie.last_careunit
   , extract(epoch from (ad.admittime - p.dob))/60.0/60.0/24.0/365.242 as age
   , p.gender as gender
@@ -124,6 +125,6 @@ create materialized view all_data as
     inner join SOFA
     on la.hadm_id = SOFA.hadm_id
   group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26
-  ,27,28,29,30,31,32,33,34,35,36,37,38,39,40, 41, 42, 43
+  ,27,28,29,30,31,32,33,34,35,36,37,38,39,40, 41, 42, 43, 44
   order by 1,3
   ;
